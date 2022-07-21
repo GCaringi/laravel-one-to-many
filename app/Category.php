@@ -5,15 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Post extends Model
+
+class Category extends Model
 {
     use Sluggable;
 
     //Mass Assignemnet
     protected $guarded = [];
 
-    public function category(){
-        return $this->belongsTo('App\Category');
+    public function posts(){
+        return $this->hasMany('App\Post');
     }
     /**
      * Return the sluggable configuration array for this model.
@@ -24,7 +25,7 @@ class Post extends Model
     {
         return [
             'slug' => [
-                'source' => 'title',
+                'source' => 'name',
                 'onUpdate' => true,
             ]
         ];
