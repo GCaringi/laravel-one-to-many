@@ -6,19 +6,31 @@
         <form action="{{route('admin.posts.store', $post->id)}}" method="POST" class="flex flex-col justify-start items-start">
             @csrf
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" class="" @error('title') is-invalid @enderror value="{{old('title')}}">
+            <input type="text" name="title" id="title" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
             @error('title')
                 <p class="text-red-500">{{$message}}</p>
             @enderror
             <label for="content">Content</label>
-            <textarea name="content" id="content" cols="30" rows="10" @error('content') is-invalid @enderror >
+            <textarea name="content" id="content" cols="30" rows="10" class=" @error('content') is-invalid @enderror" >
                 {{old('content')}}
             </textarea>
             @error('content')
                 <p class="text-red-500">{{$message}}</p>
             @enderror
+            <label for="category">Category</label>
+            <select name="category_id" id="category"class = "@error('category_id') is-invalid @enderror">
+                <option value="">Select category</option>
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}" {{old('category_id') == $category->id ? 'selected' : ''}}>
+                        {{$category->name}}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <p class="text-red-500">{{$message}}</p>
+            @enderror
             <label for="published">Pubblicato</label>
-            <input type="checkbox" name="published" id="published @error('published') is-invalid @enderror {{old('published') ? 'checked' : ''}}>
+            <input type="checkbox" name="published" id="published" class = "@error('published') is-invalid @enderror" {{old('published') ? 'checked' : ''}}>
             @error('published')
                 <p class="text-red-500">{{$message}}</p>
             @enderror
